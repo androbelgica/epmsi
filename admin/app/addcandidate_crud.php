@@ -72,7 +72,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Redirect to the page where you want to display the success message
-    header("Location: ../add_candidate.php");
+    header("Location: ../manage_candidate.php");
     exit();
 }
 ?>

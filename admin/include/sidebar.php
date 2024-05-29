@@ -120,7 +120,7 @@ foreach ($record1 as $key1) {
                                 <i class="fa fa-file-invoice-dollar"></i> <span> Payroll </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
                                 <li><a href="create_payroll.php">Generate Payroll</a></li>
-                                <li><a href="view_payroll.php">View Payroll</a></li>
+                                <li><a href="list_payroll.php">View Payroll</a></li>
                             </ul>
                         </li>
                         <li class="has_sub">

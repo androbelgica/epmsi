@@ -36,12 +36,12 @@ try {
         $stmt->execute([$client_id, $title, $description, $requirements, $posted_date, $slot, $status]);
 
         $_SESSION['success'] = "Job added successfully.";
-        header("location:add_job.php");
+        header("location:manage_job.php");
         exit();
     }
 } catch (PDOException $e) {
     $_SESSION['error'] = "Error: " . $e->getMessage();
-    header("location:add_job.php");
+    header("location:manage_job.php");
     exit();
 } catch (RuntimeException $e) {
     $_SESSION['error'] = $e->getMessage();

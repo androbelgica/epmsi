@@ -72,7 +72,8 @@ try {
                                             <td><?php echo htmlspecialchars($client['address']); ?></td>
                                             <td><?php echo htmlspecialchars($client['status']); ?></td>
                                             <td>
-                                                <a href="../admin/edit_client.php?id=<?php echo $client['client_id']; ?>" class="btn btn-primary">Edit</a>
+                                                <a href="../admin/edit_client.php?id=<?php echo $client['client_id']; ?>" class="btn btn-primary">Edit Info</a>
+                                                <a href="../admin/client_payrollinfo.php?id=<?php echo $client['client_id']; ?>" class="btn btn-success">Payroll Info</a>
                                                 <form method="POST" action="app/manageclient_crud.php" style="display:inline;">
                                                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                                                     <input type="hidden" name="client_id" value="<?php echo $client['client_id']; ?>">

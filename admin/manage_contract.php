@@ -185,10 +185,11 @@ try {
                                             <td><?php echo htmlspecialchars($contract['emp_status']); ?></td>
                                             <td><?php echo htmlspecialchars($contract['remarks']); ?></td>
                                             <td>
-                                                <?php if ($contract['emp_status'] != 'Terminated'): ?>
+                                            <?php if ($contract['emp_status'] != 'Terminated' && $contract['emp_status'] != 'Contract Ended'): ?>
                                                     <a href="modify_contract.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-success">Extend/Amend</a>
-                                                    <a href="terminate_contract.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-primary">Terminate</a>
+                                                    <a href="terminate_contract.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-danger">Terminate</a>
                                                     <a href="end_contract.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-secondary">End Contract</a>
+                                                    <a href="contract_deductions.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-info">Payroll Deductions</a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

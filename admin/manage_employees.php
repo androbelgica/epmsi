@@ -117,9 +117,10 @@ try {
                                             <td><?php echo htmlspecialchars($contract['emp_status']); ?></td>
                                             <td><?php echo htmlspecialchars($contract['remarks']); ?></td>
                                             <td>
-                                                <a href="modify_contract.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-primary">Edit Contract</a>
-                                                <a href="create_payroll.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-success">Generate Payroll</a>    
-                                            </td>
+                                                <a href="contract_details.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-primary">View Details</a>
+                                                <a href="create_payroll.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-success">Generate Payroll</a>
+                                                <a href="modify_contract.php?id=<?php echo $contract['contract_id']; ?>" class="btn btn-sm btn-success">Modify Contract</a>
+                                               </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

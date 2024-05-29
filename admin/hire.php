@@ -38,7 +38,7 @@ try {
     // Prepare the base query for candidates excluding those already in contracts table and not
     $base_query = "
         SELECT * FROM candidates 
-        WHERE candidate_id NOT IN (SELECT candidate_id FROM contracts)
+        WHERE status != 'Employed'
     ";
 
    

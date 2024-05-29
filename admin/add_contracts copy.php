@@ -2,11 +2,6 @@
 session_start();
 include '../assets/constant/config.php';
 
-if (!isset($_SESSION['id'])) {
-    header("Location: ../../index.php");
-    exit();
-}
-
 if (!isset($_GET['candidate_id']) || !isset($_GET['job_id'])) {
     $_SESSION['error'] = "Invalid candidate ID or job ID.";
     header("location:manage_job.php");
@@ -56,15 +51,6 @@ try {
         $emp_status = "Employed";
         $remarks = !empty($_POST['remarks']) ? $_POST['remarks'] : NULL;
 
-        // Deduction fields with default value of 0
-        $sss = !empty($_POST['sss']) ? $_POST['sss'] : 0;
-        $pagibig = !empty($_POST['pagibig']) ? $_POST['pagibig'] : 0;
-        $philhealth = !empty($_POST['philhealth']) ? $_POST['philhealth'] : 0;
-        $insurance = !empty($_POST['insurance']) ? $_POST['insurance'] : 0;
-        $w_tax = !empty($_POST['w_tax']) ? $_POST['w_tax'] : 0;
-        $other_deduction = !empty($_POST['other_deduction']) ? $_POST['other_deduction'] : 0;
-
-
         try {
             // Start transaction
             $conn->beginTransaction();
@@ -83,10 +69,6 @@ try {
             $stmt->bindParam(':emp_status', $emp_status);
             $stmt->bindParam(':remarks', $remarks);
             $stmt->execute();
-
-            // Get the last inserted contract ID
-            $contract_id = $conn->lastInsertId();
-
 
             // Update the status of the candidate
             $stmt = $conn->prepare("
@@ -116,56 +98,10 @@ try {
             $stmt->bindParam(':job_id', $job_id);
             $stmt->execute();
 
-            // Insert into other_deductions table with default values of 0
-            $stmt = $conn->prepare("
-            INSERT INTO other_deductions (contract_id, lifeinsurance, uniforms_ppe, user_id) 
-            VALUES (:contract_id, 0, 0, :user_id)
-            ");
-            $stmt->bindParam(':contract_id', $contract_id);
-            $stmt->bindParam(':user_id', $_SESSION['id']);
-            $stmt->execute();
-
-            // Insert into sss table with default values of 0
-            $stmt = $conn->prepare("
-            INSERT INTO sss (contract_id, ee_share, er_share, user_id) 
-            VALUES (:contract_id, 0, 0, :user_id)
-            ");
-            $stmt->bindParam(':contract_id', $contract_id);
-            $stmt->bindParam(':user_id', $_SESSION['id']);
-            $stmt->execute();
-
-            // Insert into phic table with default values of 0
-            $stmt = $conn->prepare("
-            INSERT INTO phic (contract_id, ee_share, er_share, user_id) 
-            VALUES (:contract_id, 0, 0, :user_id)
-            ");
-            $stmt->bindParam(':contract_id', $contract_id);
-            $stmt->bindParam(':user_id', $_SESSION['id']);
-            $stmt->execute();
-
-            // Insert into ec table with default values of 0
-            $stmt = $conn->prepare("
-            INSERT INTO ec (contract_id, ee_share, er_share, user_id) 
-            VALUES (:contract_id, 0, 0, :user_id)
-            ");
-            $stmt->bindParam(':contract_id', $contract_id);
-            $stmt->bindParam(':user_id', $_SESSION['id']);
-            $stmt->execute();
-
-            // Insert into hdmf table with default values of 0
-            $stmt = $conn->prepare("
-            INSERT INTO hdmf (contract_id, ee_share, er_share, user_id) 
-            VALUES (:contract_id, 0, 0, :user_id)
-            ");
-            $stmt->bindParam(':contract_id', $contract_id);
-            $stmt->bindParam(':user_id', $_SESSION['id']);
-            $stmt->execute();
-
-
             // Commit transaction
             $conn->commit();
 
-            $_SESSION['success'] = "Contract and deductions added, and candidate status updated successfully.";
+            $_SESSION['success'] = "Contract added and candidate status updated successfully.";
             header("location:manage_job.php");
             exit();
         } catch (PDOException $e) {
@@ -182,7 +118,6 @@ try {
     exit();
 }
 ?>
-
 <?php include('include/sidebar.php'); ?>
 <?php include('include/header.php'); ?>
 <div class="page-content-wrapper">
